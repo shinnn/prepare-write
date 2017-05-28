@@ -29,8 +29,7 @@
   "dependencies": {
     "graceful-fs": "^4.1.11",
     "is-dir": "^1.0.0",
-    "mkdirp": "^0.5.1",
-    "pinkie-promise": "^2.0.1"
+    "mkdirp": "^0.5.1"
   },
   "devDependencies": {
     "@shinnn/eslint-config-node-legacy": "^3.0.0",
