@@ -32,7 +32,7 @@
     "mkdirp": "^0.5.1"
   },
   "devDependencies": {
-    "@shinnn/eslint-config-node-legacy": "^3.0.0",
+    "@shinnn/eslint-config-node": "^3.0.0",
     "eslint": "^3.19.0",
     "lstat": "^1.0.0",
     "nyc": "^10.3.2",
@@ -40,6 +40,6 @@
     "tape": "^4.6.3"
   },
   "eslintConfig": {
-    "extends": "@shinnn/node-legacy"
+    "extends": "@shinnn/node"
   }
 }
