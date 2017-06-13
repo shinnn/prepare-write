@@ -55,7 +55,7 @@ test('prepareWrite()', async t => {
   prepareWrite(/^/).catch(err => {
     t.strictEqual(
       err.toString(),
-      'TypeError: Expected a file path (string), but got /^/.',
+      'TypeError: Expected a file path (string), but got /^/ (regexp).',
       'should fail when it takes a non-string argument.'
     );
   }).catch(t.fail);

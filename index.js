@@ -1,12 +1,12 @@
 'use strict';
 
-const inspect = require('util').inspect;
 const pathLib = require('path');
 
 const dirname = pathLib.dirname;
 const resolvePath = pathLib.resolve;
 
 const fs = require('graceful-fs');
+const inspectWithKind = require('inspect-with-kind');
 const isDir = require('is-dir');
 const mkdirp = require('mkdirp');
 
@@ -14,7 +14,7 @@ const PATH_ERROR = 'Expected a file path (string)';
 
 module.exports = function prepareWrite(filePath) {
   if (typeof filePath !== 'string') {
-    return Promise.reject(new TypeError(`${PATH_ERROR}, but got ${inspect(filePath)}.`));
+    return Promise.reject(new TypeError(`${PATH_ERROR}, but got ${inspectWithKind(filePath)}.`));
   }
 
   if (filePath.length === 0) {

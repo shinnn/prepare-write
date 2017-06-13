@@ -28,6 +28,7 @@
   ],
   "dependencies": {
     "graceful-fs": "^4.1.11",
+    "inspect-with-kind": "^1.0.1",
     "is-dir": "^1.0.0",
     "mkdirp": "^0.5.1"
   },
