@@ -1,9 +1,6 @@
 'use strict';
 
-const pathLib = require('path');
-
-const dirname = pathLib.dirname;
-const resolvePath = pathLib.resolve;
+const {dirname, resolve: resolvePath} = require('path');
 
 const fs = require('graceful-fs');
 const inspectWithKind = require('inspect-with-kind');

@@ -23,7 +23,7 @@ test('prepareWrite()', async t => {
       'should create ancestor directories of the file.'
     );
 
-    t.strictEqual(
+    t.equal(
       dir,
       resolve('tmp'),
       'should be resolved with the path of the first created directory.'
@@ -31,15 +31,15 @@ test('prepareWrite()', async t => {
   }).catch(t.fail);
 
   prepareWrite(__filename).then(dir => {
-    t.strictEqual(dir, null, 'should be resolved with null when it creates no directories.');
+    t.equal(dir, null, 'should be resolved with null when it creates no directories.');
   }).catch(t.fail);
 
   prepareWrite(resolve('index.js', 'foo')).catch(({code}) => {
-    t.strictEqual(code, 'EEXIST', 'should fail when it cannot create directories.');
+    t.equal(code, 'EEXIST', 'should fail when it cannot create directories.');
   }).catch(t.fail);
 
   prepareWrite(__dirname).catch(err => {
-    t.strictEqual(
+    t.equal(
       err.toString(),
       `Error: Tried to create a file as ${
         __dirname
@@ -47,13 +47,13 @@ test('prepareWrite()', async t => {
       'should fail when a diretory already exists in the target path.'
     );
 
-    t.strictEqual(err.code, 'EISDIR', 'should add an appropriate `code` property to the error.');
-    t.strictEqual(err.path, __dirname, 'should add an appropriate `path` property to the error.');
-    t.strictEqual(err.syscall, 'open', 'should add an appropriate `syscall` property to the error.');
+    t.equal(err.code, 'EISDIR', 'should add an appropriate `code` property to the error.');
+    t.equal(err.path, __dirname, 'should add an appropriate `path` property to the error.');
+    t.equal(err.syscall, 'open', 'should add an appropriate `syscall` property to the error.');
   }).catch(t.fail);
 
   prepareWrite(/^/).catch(err => {
-    t.strictEqual(
+    t.equal(
       err.toString(),
       'TypeError: Expected a file path (string), but got /^/ (regexp).',
       'should fail when it takes a non-string argument.'
@@ -61,7 +61,7 @@ test('prepareWrite()', async t => {
   }).catch(t.fail);
 
   prepareWrite('').catch(err => {
-    t.strictEqual(
+    t.equal(
       err.toString(),
       'Error: Expected a file path (string), but got \'\' (empty string).',
       'should fail when it takes an empty string.'
