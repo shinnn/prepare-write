@@ -9,7 +9,17 @@ const mkdirp = require('mkdirp');
 
 const PATH_ERROR = 'Expected a file path (string)';
 
-module.exports = function prepareWrite(filePath) {
+module.exports = function prepareWrite(...args) {
+  const argLen = args.length;
+
+  if (argLen !== 1) {
+    return Promise.reject(new RangeError(`Expected 1 argument (string), but got ${
+      argLen === 0 ? 'no' : argLen
+    } arguments instead.`));
+  }
+
+  const [filePath] = args;
+
   if (typeof filePath !== 'string') {
     return Promise.reject(new TypeError(`${PATH_ERROR}, but got ${inspectWithKind(filePath)}.`));
   }

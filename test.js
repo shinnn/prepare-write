@@ -8,7 +8,7 @@ const rmfr = require('rmfr');
 const test = require('tape');
 
 test('prepareWrite()', async t => {
-  t.plan(11);
+  t.plan(13);
 
   await rmfr('tmp');
 
@@ -65,6 +65,22 @@ test('prepareWrite()', async t => {
       err.toString(),
       'Error: Expected a file path (string), but got \'\' (empty string).',
       'should fail when it takes an empty string.'
+    );
+  }).catch(t.fail);
+
+  prepareWrite().catch(err => {
+    t.equal(
+      err.toString(),
+      'RangeError: Expected 1 argument (string), but got no arguments instead.',
+      'should fail when it takes no arguments.'
+    );
+  }).catch(t.fail);
+
+  prepareWrite('a', 'b').catch(err => {
+    t.equal(
+      err.toString(),
+      'RangeError: Expected 1 argument (string), but got 2 arguments instead.',
+      'should fail when it takes too many arguments.'
     );
   }).catch(t.fail);
 });
