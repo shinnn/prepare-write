@@ -9,28 +9,28 @@ const mkdirp = require('mkdirp');
 
 const PATH_ERROR = 'Expected a file path (string)';
 
-module.exports = function prepareWrite(...args) {
+module.exports = async function prepareWrite(...args) {
 	const argLen = args.length;
 
 	if (argLen !== 1) {
-		return Promise.reject(new RangeError(`Expected 1 argument (string), but got ${
+		throw new RangeError(`Expected 1 argument (<string>), but got ${
 			argLen === 0 ? 'no' : argLen
-		} arguments instead.`));
+		} arguments instead.`);
 	}
 
 	const [filePath] = args;
 
 	if (typeof filePath !== 'string') {
-		return Promise.reject(new TypeError(`${PATH_ERROR}, but got ${inspectWithKind(filePath)}.`));
+		throw new TypeError(`${PATH_ERROR}, but got ${inspectWithKind(filePath)}.`);
 	}
 
 	if (filePath.length === 0) {
-		return Promise.reject(new Error(`${PATH_ERROR}, but got '' (empty string).`));
+		throw new Error(`${PATH_ERROR}, but got '' (empty string).`);
 	}
 
 	const absoluteFilePath = resolvePath(filePath);
 
-	return Promise.all([
+	const [result] = await Promise.all([
 		new Promise((resolve, reject) => {
 			mkdirp(dirname(absoluteFilePath), {fs}, (err, firstDir) => {
 				if (err) {
@@ -63,5 +63,7 @@ module.exports = function prepareWrite(...args) {
 				resolve();
 			});
 		})
-	]).then(result => result[0]);
+	]);
+
+	return result;
 };

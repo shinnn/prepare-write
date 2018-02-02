@@ -1,6 +1,6 @@
 # prepare-write
 
-[![NPM version](https://img.shields.io/npm/v/prepare-write.svg)](https://www.npmjs.com/package/prepare-write)
+[![npm version](https://img.shields.io/npm/v/prepare-write.svg)](https://www.npmjs.com/package/prepare-write)
 [![Build Status](https://travis-ci.org/shinnn/prepare-write.svg?branch=master)](https://travis-ci.org/shinnn/prepare-write)
 [![Coverage Status](https://img.shields.io/coveralls/shinnn/prepare-write.svg)](https://coveralls.io/github/shinnn/prepare-write?branch=master)
 
@@ -10,19 +10,21 @@ Prepare for writing a file to the given path – create ancestor directories and
 const {existsSync} = require('fs');
 const prepareWrite = require('prepare-write');
 
-existsSync('dir0'); //=> false
+(async () => {
+  existsSync('dir0'); //=> false
 
-(async () => await prepareWrite('dir0/dir1/dir2/file.txt'))();
+  await prepareWrite('dir0/dir1/dir2/file.txt');
 
-existsSync('dir0'); //=> true
-existsSync('dir0/dir1'); //=> true
-existsSync('dir0/dir1/dir2'); //=> true
-existsSync('dir0/dir1dir2/file.txt'); //=> false
+  existsSync('dir0'); //=> true
+  existsSync('dir0/dir1'); //=> true
+  existsSync('dir0/dir1/dir2'); //=> true
+  existsSync('dir0/dir1dir2/file.txt'); //=> false
+})();
 ```
 
 ## Installation
 
-[Use npm.](https://docs.npmjs.com/cli/install)
+[Use](https://docs.npmjs.com/cli/install) [npm](https://docs.npmjs.com/getting-started/what-is-npm).
 
 ```
 npm install prepare-write
@@ -37,7 +39,7 @@ const prepareWrite = require('prepare-write');
 ### prepareWrite(*path*)
 
 *path*: `string` (directory path)  
-Return: `Promise<string | null>`
+Return: `Promise<string|null>`
 
 It ensures you can soon write a file to the given path by:
 
@@ -47,26 +49,22 @@ It ensures you can soon write a file to the given path by:
 The `Promise` will be fulfilled with an absolute path of the first directory that had to be created.
 
 ```javascript
-// a directory /foo doesn't exist
+(async () => {
+  // a directory /foo doesn't exist
 
-prepareWrite('/foo/bar/baz').then(firstDir => {
-  firstDir; //=> '/foo/'
-});
+  await prepareWrite('/foo/bar/baz');
+  //=> '/foo/'
 
-// a directory /foo/bar exists
+  // a directory /foo/bar now exists
 
-prepareWrite('/foo/bar/baz').then(firstDir => {
-  firstDir; //=> null
-});
+  await prepareWrite('/foo/bar/baz');
+  //=> null
 
-// a directory /foo/bar/baz exists
-
-prepareWrite('/foo/bar/baz').catch(err => {
-  err.message;
-  //=> 'Tried to create a file as /foo/bar/baz, but a directory with the same name already exists.'
-});
+  await prepareWrite('/foo/bar');
+  // Error: Tried to create a file as /foo/bar, but a directory with the same name already exists.
+})();
 ```
 
 ## License
 
-[ISC License](./LICENSE) © 2017 Shinnosuke Watanabe
+[ISC License](./LICENSE) © 2017 - 2018 Shinnosuke Watanabe
