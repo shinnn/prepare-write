@@ -1,13 +1,17 @@
 'use strict';
 
-const {dirname, resolve: resolvePath} = require('path');
+const {dirname, resolve} = require('path');
+const {promisify} = require('util');
 
 const fs = require('graceful-fs');
 const inspectWithKind = require('inspect-with-kind');
 const isDir = require('is-dir');
 const mkdirp = require('mkdirp');
 
-const PATH_ERROR = 'Expected a file path (string)';
+const PATH_ERROR = 'Expected a file path (<string>)';
+const mkdirpOption = {fs};
+const promisifiedMkdirp = promisify(mkdirp);
+const promisifiedIsDir = promisify(isDir);
 
 module.exports = async function prepareWrite(...args) {
 	const argLen = args.length;
@@ -28,41 +32,29 @@ module.exports = async function prepareWrite(...args) {
 		throw new Error(`${PATH_ERROR}, but got '' (empty string).`);
 	}
 
-	const absoluteFilePath = resolvePath(filePath);
+	const absoluteFilePath = resolve(filePath);
 
 	const [result] = await Promise.all([
-		new Promise((resolve, reject) => {
-			mkdirp(dirname(absoluteFilePath), {fs}, (err, firstDir) => {
-				if (err) {
-					reject(err);
+		promisifiedMkdirp(dirname(absoluteFilePath), mkdirpOption),
+		(async () => {
+			try {
+				if (!await promisifiedIsDir(filePath)) {
 					return;
 				}
+			} catch (_) {
+				return;
+			}
 
-				resolve(firstDir);
-			});
-		}),
-		new Promise((resolve, reject) => {
-			isDir(filePath, (err, yes) => {
-				if (err) {
-					resolve();
-					return;
-				}
+			const error = new Error(`Tried to create a file as ${
+				absoluteFilePath
+			}, but a directory with the same name already exists.`);
 
-				if (yes) {
-					const error = new Error(`Tried to create a file as ${
-						absoluteFilePath
-					}, but a directory with the same name already exists.`);
-					error.code = 'EISDIR';
-					error.path = absoluteFilePath;
-					error.syscall = 'open';
-					reject(error);
+			error.code = 'EISDIR';
+			error.path = absoluteFilePath;
+			error.syscall = 'open';
 
-					return;
-				}
-
-				resolve();
-			});
-		})
+			throw error;
+		})()
 	]);
 
 	return result;

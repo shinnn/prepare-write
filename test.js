@@ -75,7 +75,7 @@ test('prepareWrite()', async t => {
 		} catch (err) {
 			t.equal(
 				err.toString(),
-				'TypeError: Expected a file path (string), but got /^/ (regexp).',
+				'TypeError: Expected a file path (<string>), but got /^/ (regexp).',
 				'should fail when it takes a non-string argument.'
 			);
 		}
@@ -86,7 +86,7 @@ test('prepareWrite()', async t => {
 	} catch (err) {
 		t.equal(
 			err.toString(),
-			'Error: Expected a file path (string), but got \'\' (empty string).',
+			'Error: Expected a file path (<string>), but got \'\' (empty string).',
 			'should fail when it takes an empty string.'
 		);
 	}
@@ -96,7 +96,7 @@ test('prepareWrite()', async t => {
 	} catch (err) {
 		t.equal(
 			err.toString(),
-			'RangeError: Expected 1 argument (string), but got no arguments instead.',
+			'RangeError: Expected 1 argument (<string>), but got no arguments instead.',
 			'should fail when it takes no arguments.'
 		);
 	}
@@ -106,7 +106,7 @@ test('prepareWrite()', async t => {
 	} catch (err) {
 		t.equal(
 			err.toString(),
-			'RangeError: Expected 1 argument (string), but got 2 arguments instead.',
+			'RangeError: Expected 1 argument (<string>), but got 2 arguments instead.',
 			'should fail when it takes too many arguments.'
 		);
 	}
