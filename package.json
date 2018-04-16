@@ -1,12 +1,12 @@
 {
 	"name": "prepare-write",
-	"version": "0.6.0",
+	"version": "1.0.0",
 	"description": "Prepare for writing a file to the given path – create ancestor directories and verify no directory exists in the path",
 	"repository": "shinnn/prepare-write",
 	"author": "Shinnosuke Watanabe (https://github.com/shinnn)",
 	"scripts": {
 		"pretest": "eslint --fix --format=codeframe index.js test.js",
-		"test": "nyc node test.js"
+		"test": "nyc --reporter=html --reporter=text node test.js"
 	},
 	"license": "ISC",
 	"files": [
@@ -34,10 +34,10 @@
 	},
 	"devDependencies": {
 		"@shinnn/eslint-config-node": "^5.0.0",
-		"eslint": "^4.17.0",
-		"nyc": "^11.4.1",
-		"rmfr": "^2.0.0-3",
-		"tape": "^4.8.0"
+		"eslint": "^4.19.1",
+		"nyc": "^11.7.0",
+		"rmfr": "^2.0.0",
+		"tape": "^4.9.0"
 	},
 	"eslintConfig": {
 		"extends": "@shinnn/node"
