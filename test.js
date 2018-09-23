@@ -71,11 +71,11 @@ test('prepareWrite()', async t => {
 
 	(async () => {
 		try {
-			await prepareWrite(/^/);
+			await prepareWrite(/^/u);
 		} catch (err) {
 			t.equal(
 				err.toString(),
-				'TypeError: Expected a file path (<string>), but got /^/ (regexp).',
+				'TypeError: Expected a file path (<string>), but got /^/u (regexp).',
 				'should fail when it takes a non-string argument.'
 			);
 		}

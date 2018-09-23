@@ -3,13 +3,11 @@
 const {dirname, resolve} = require('path');
 const {promisify} = require('util');
 
-const fs = require('graceful-fs');
 const inspectWithKind = require('inspect-with-kind');
 const isDir = require('is-dir');
 const mkdirp = require('mkdirp');
 
 const PATH_ERROR = 'Expected a file path (<string>)';
-const mkdirpOption = {fs};
 const promisifiedMkdirp = promisify(mkdirp);
 const promisifiedIsDir = promisify(isDir);
 
@@ -35,7 +33,7 @@ module.exports = async function prepareWrite(...args) {
 	const absoluteFilePath = resolve(filePath);
 
 	const [result] = await Promise.all([
-		promisifiedMkdirp(dirname(absoluteFilePath), mkdirpOption),
+		promisifiedMkdirp(dirname(absoluteFilePath)),
 		(async () => {
 			try {
 				if (!await promisifiedIsDir(filePath)) {

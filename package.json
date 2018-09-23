@@ -4,11 +4,11 @@
 	"description": "Prepare for writing a file to the given path – create ancestor directories and verify no directory exists in the path",
 	"repository": "shinnn/prepare-write",
 	"author": "Shinnosuke Watanabe (https://github.com/shinnn)",
-	"scripts": {
-		"pretest": "eslint --fix --format=codeframe index.js test.js",
-		"test": "nyc --reporter=html --reporter=text node test.js"
-	},
 	"license": "ISC",
+	"scripts": {
+		"pretest": "eslint .",
+		"test": "nyc node test.js"
+	},
 	"files": [
 		"index.js"
 	],
@@ -27,19 +27,22 @@
 		"asynchronous"
 	],
 	"dependencies": {
-		"graceful-fs": "^4.1.11",
-		"inspect-with-kind": "^1.0.4",
+		"inspect-with-kind": "^1.0.5",
 		"is-dir": "^1.0.0",
 		"mkdirp": "^0.5.1"
 	},
 	"devDependencies": {
-		"@shinnn/eslint-config-node": "^5.0.0",
-		"eslint": "^4.19.1",
-		"nyc": "^11.7.0",
+		"@shinnn/eslint-config": "^6.7.1",
+		"eslint": "^5.6.0",
+		"nyc": "^13.0.1",
+		"nyc-config-common": "^1.0.0",
 		"rmfr": "^2.0.0",
-		"tape": "^4.9.0"
+		"tape": "^4.9.1"
 	},
 	"eslintConfig": {
-		"extends": "@shinnn/node"
+		"extends": "@shinnn"
+	},
+	"nyc": {
+		"extends": "nyc-config-common"
 	}
 }
