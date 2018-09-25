@@ -1,15 +1,15 @@
 'use strict';
 
 const {dirname, resolve} = require('path');
+const {stat} = require('fs');
 const {promisify} = require('util');
 
 const inspectWithKind = require('inspect-with-kind');
-const isDir = require('is-dir');
 const mkdirp = require('mkdirp');
 
 const PATH_ERROR = 'Expected a file path (<string>)';
 const promisifiedMkdirp = promisify(mkdirp);
-const promisifiedIsDir = promisify(isDir);
+const promisifiedStat = promisify(stat);
 
 module.exports = async function prepareWrite(...args) {
 	const argLen = args.length;
@@ -32,11 +32,11 @@ module.exports = async function prepareWrite(...args) {
 
 	const absoluteFilePath = resolve(filePath);
 
-	const [result] = await Promise.all([
+	return (await Promise.all([
 		promisifiedMkdirp(dirname(absoluteFilePath)),
 		(async () => {
 			try {
-				if (!await promisifiedIsDir(filePath)) {
+				if (!(await promisifiedStat(absoluteFilePath)).isDirectory()) {
 					return;
 				}
 			} catch (_) {
@@ -53,7 +53,5 @@ module.exports = async function prepareWrite(...args) {
 
 			throw error;
 		})()
-	]);
-
-	return result;
+	]))[0];
 };

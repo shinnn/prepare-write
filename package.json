@@ -28,7 +28,6 @@
 	],
 	"dependencies": {
 		"inspect-with-kind": "^1.0.5",
-		"is-dir": "^1.0.0",
 		"mkdirp": "^0.5.1"
 	},
 	"devDependencies": {
