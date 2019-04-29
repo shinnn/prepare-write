@@ -1,7 +1,7 @@
 # prepare-write
 
 [![npm version](https://img.shields.io/npm/v/prepare-write.svg)](https://www.npmjs.com/package/prepare-write)
-[![Build Status](https://travis-ci.org/shinnn/prepare-write.svg?branch=master)](https://travis-ci.org/shinnn/prepare-write)
+[![Build Status](https://travis-ci.com/shinnn/prepare-write.svg?branch=master)](https://travis-ci.com/shinnn/prepare-write)
 [![Coverage Status](https://img.shields.io/coveralls/shinnn/prepare-write.svg)](https://coveralls.io/github/shinnn/prepare-write?branch=master)
 
 Prepare for writing a file to the given path – create ancestor directories and verify no directory exists in the path
@@ -24,7 +24,7 @@ const prepareWrite = require('prepare-write');
 
 ## Installation
 
-[Use](https://docs.npmjs.com/cli/install) [npm](https://docs.npmjs.com/getting-started/what-is-npm).
+[Use](https://docs.npmjs.com/cli/install) [npm](https://docs.npmjs.com/about-npm/).
 
 ```
 npm install prepare-write
@@ -39,7 +39,7 @@ const prepareWrite = require('prepare-write');
 ### prepareWrite(*path*)
 
 *path*: `string` (directory path)  
-Return: `Promise<string|null>`
+Return: `Promise<string | null>`
 
 It ensures you can soon write a file to the given path by:
 
@@ -67,4 +67,4 @@ The `Promise` will be fulfilled with an absolute path of the first directory tha
 
 ## License
 
-[ISC License](./LICENSE) © 2017 - 2018 Shinnosuke Watanabe
+[ISC License](./LICENSE) © 2017 - 2019 Shinnosuke Watanabe

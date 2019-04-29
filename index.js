@@ -39,7 +39,7 @@ module.exports = async function prepareWrite(...args) {
 				if (!(await promisifiedStat(absoluteFilePath)).isDirectory()) {
 					return;
 				}
-			} catch (_) {
+			} catch {
 				return;
 			}
 
