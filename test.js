@@ -11,12 +11,12 @@ const test = require('tape');
 const promisifiedLstat = promisify(lstat);
 
 test('prepareWrite()', async t => {
-	t.plan(13);
+	t.plan(12);
 
 	await rmfr('tmp');
 
 	(async () => {
-		const dir = await prepareWrite('tmp/0/1');
+		await prepareWrite('tmp/0/1');
 
 		t.ok(
 			(await promisifiedLstat('tmp/0')).isDirectory(),
@@ -27,20 +27,11 @@ test('prepareWrite()', async t => {
 			(await promisifiedLstat('tmp')).isDirectory(),
 			'should create ancestor directories of the file.'
 		);
-
-		t.equal(
-			dir,
-			resolve('tmp'),
-			'should be resolved with the path of the first created directory.'
-		);
 	})().catch(t.fail);
 
 	(async () => {
-		t.equal(
-			await prepareWrite(__filename),
-			null,
-			'should be resolved with null when it creates no directories.'
-		);
+		await prepareWrite(__filename);
+		t.pass('should create nothing when parent directories already exist.');
 	})().catch(t.fail);
 
 	(async () => {

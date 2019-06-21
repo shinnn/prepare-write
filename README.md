@@ -46,19 +46,13 @@ It ensures you can soon write a file to the given path by:
 1. Creating ancestor directories if they don't exist
 2. Checking if no directory already exists in the path
 
-The `Promise` will be fulfilled with an absolute path of the first directory that had to be created.
-
 ```javascript
 (async () => {
   // a directory /foo doesn't exist
 
   await prepareWrite('/foo/bar/baz');
-  //=> '/foo/'
 
   // a directory /foo/bar now exists
-
-  await prepareWrite('/foo/bar/baz');
-  //=> null
 
   await prepareWrite('/foo/bar');
   // Error: Tried to create a file as /foo/bar, but a directory with the same name already exists.
@@ -67,4 +61,4 @@ The `Promise` will be fulfilled with an absolute path of the first directory tha
 
 ## License
 
-[ISC License](./LICENSE) © 2017 - 2019 Shinnosuke Watanabe
+[ISC License](./LICENSE) © 2017 - 2019 Watanabe Shinnosuke
