@@ -1,6 +1,6 @@
 {
 	"name": "prepare-write",
-	"version": "2.0.0-1",
+	"version": "2.0.0-2",
 	"description": "Prepare for writing a file to the given path – create ancestor directories and verify no directory exists in the path",
 	"author": "Watanabe Shinnosuke (https://github.com/shinnn)",
 	"repository": "shinnn/prepare-write",
